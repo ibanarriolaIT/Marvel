@@ -11,6 +11,7 @@ import com.ibanarriola.testapplication.glide.GlideApp
 import com.ibanarriola.testapplication.repository.datasource.State
 import com.ibanarriola.testapplication.repository.model.Heroes
 import kotlinx.android.synthetic.main.hero_item.view.*
+import java.text.DecimalFormat
 
 class HeroAdapter : PagedListAdapter<Heroes.Hero, HeroViewHolder>(HeroDiffCallback) {
 
@@ -61,8 +62,14 @@ class HeroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(hero: Heroes.Hero?) {
         if (hero != null) {
             itemView.hero_name.text = hero.title
-            itemView.hero_price.text = hero.prices[0].price.toString() + "€"
-            GlideApp.with(itemView).load(hero.thumbnail.path + "/standard_large." + hero.thumbnail.extension)
+            val df = DecimalFormat("0.##")
+            if (hero.prices!![0].price != 0.0)
+                itemView.hero_price.text = itemView.context.getString(R.string.price_text, df.format(hero.prices[0].price))
+            else
+                itemView.hero_price.visibility = View.GONE
+            GlideApp.with(itemView)
+                    .load(hero.thumbnail!!.path + "/standard_large." + hero.thumbnail.extension)
+                    .placeholder(R.mipmap.marvel)
                     .into(itemView.hero_image)
             itemView.setOnClickListener {
                 onHeroClickListener.OnHeroClick(hero)

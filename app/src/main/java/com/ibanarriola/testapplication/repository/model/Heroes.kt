@@ -6,14 +6,14 @@ import android.os.Parcelable
 object Heroes {
     data class DataResult(val data: Data)
     data class Data(val results: List<Hero>)
-    data class Hero(val id: Int, val title: String, val description: String, val pageCount: Int, val thumbnail: Thumbnail, val prices: List<Prices>): Parcelable {
+    data class Hero(val id: Int, val title: String?, val description: String?, val pageCount: Int, val thumbnail: Thumbnail?, val prices: List<Prices>?): Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
-                parcel.readString()!!,
-                parcel.readString()!!,
+                parcel.readString(),
+                parcel.readString(),
                 parcel.readInt(),
-                parcel.readParcelable(Thumbnail::class.java.classLoader)!!,
-                parcel.createTypedArrayList(Prices)!!)
+                parcel.readParcelable(Thumbnail::class.java.classLoader),
+                parcel.createTypedArrayList(Prices))
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
             parcel.writeInt(id)
