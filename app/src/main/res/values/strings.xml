@@ -1,0 +1,9 @@
+<resources>
+   <string name="app_name">Test Application</string>
+
+   <!-- TODO: Remove or change this placeholder text -->
+   <string name="hello_blank_fragment">Hello blank fragment</string>
+   <string name="hero_image">Hero image</string>
+   <string name="title_activity_hero_detail">HeroDetailActivity</string>
+   <string name="price_text">%1s€</string>
+</resources>
