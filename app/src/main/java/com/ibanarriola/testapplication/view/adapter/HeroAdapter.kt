@@ -63,10 +63,12 @@ class HeroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         if (hero != null) {
             itemView.hero_name.text = hero.title
             val df = DecimalFormat("0.##")
-            if (hero.prices!![0].price != 0.0)
+            if (hero.prices!![0].price != 0.0) {
+                itemView.hero_price.visibility = View.VISIBLE
                 itemView.hero_price.text = itemView.context.getString(R.string.price_text, df.format(hero.prices[0].price))
-            else
+            } else {
                 itemView.hero_price.visibility = View.GONE
+            }
             GlideApp.with(itemView)
                     .load(hero.thumbnail!!.path + "/standard_large." + hero.thumbnail.extension)
                     .placeholder(R.mipmap.marvel)
