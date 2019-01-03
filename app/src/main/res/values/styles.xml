@@ -13,6 +13,22 @@
       <item name="windowNoTitle">true</item>
    </style>
 
+   <style name="AppTheme.Title">
+      <item name="android:textSize">@dimen/title_size</item>
+      <item name="android:textStyle">bold</item>
+      <item name="android:fontFamily">ROBOTO_REGULAR</item>
+   </style>
+
+   <style name="AppTheme.Description">
+      <item name="android:textSize">@dimen/desc_size</item>
+      <item name="android:fontFamily">ROBOTO_LIGHT</item>
+   </style>
+
+   <style name="AppTheme.Price">
+      <item name="android:textSize">@dimen/price_size</item>
+      <item name="android:fontFamily">ROBOTO_LIGHT</item>
+   </style>
+
    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

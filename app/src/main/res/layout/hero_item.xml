@@ -25,7 +25,7 @@
             android:id="@+id/hero_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            style="@style/AppTheme.Title"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/hero_image"/>
 
@@ -34,8 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:maxLines="3"
-            android:textSize="12sp"
+            style="@style/AppTheme.Price"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/hero_image"
             android:layout_below="@+id/hero_name"/>

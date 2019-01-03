@@ -19,6 +19,7 @@
          android:id="@+id/hero_name"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
+         style="@style/AppTheme.Title"
          android:layout_margin="5dp"
          android:textStyle="bold"
          android:textSize="15sp" />
@@ -27,6 +28,7 @@
          android:id="@+id/hero_price"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
+         style="@style/AppTheme.Price"
          android:layout_margin="5dp"
          android:textSize="14sp" />
 
@@ -34,6 +36,7 @@
          android:id="@+id/hero_description"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
+         style="@style/AppTheme.Description"
          android:layout_margin="5dp"/>
 
    </LinearLayout>

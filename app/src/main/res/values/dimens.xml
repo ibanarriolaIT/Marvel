@@ -1,3 +1,6 @@
 <resources>
    <dimen name="fab_margin">16dp</dimen>
+   <dimen name="title_size">18sp</dimen>
+   <dimen name="desc_size">13sp</dimen>
+   <dimen name="price_size">15sp</dimen>
 </resources>
