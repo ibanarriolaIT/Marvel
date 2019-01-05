@@ -22,7 +22,7 @@ class HeroDetailActivity : AppCompatActivity() {
         hero_name.text = hero.title
         val df = DecimalFormat("0.##")
         if (hero.prices!![0].price != 0.0)
-            hero_price.text = getString(R.string.price_text, df.format(hero.prices!![0].price))
+            hero_price.text = getString(R.string.price_text, df.format(hero.prices[0].price))
         else
             hero_price.visibility = View.GONE
         GlideApp.with(this)

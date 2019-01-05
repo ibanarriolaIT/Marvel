@@ -6,22 +6,35 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.github.salomonbrys.kodein.instance
-import com.ibanarriola.testapplication.kodein.heroesRepositoryModel
+import com.ibanarriola.testapplication.repository.HeroesRepository
 import com.ibanarriola.testapplication.repository.datasource.State
 import com.ibanarriola.testapplication.repository.datasource.heroes.HeroesDataSource
 import com.ibanarriola.testapplication.repository.datasource.heroes.HeroesDataSourceFactory
 import com.ibanarriola.testapplication.repository.model.Heroes
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class MainPresenter : ViewModel() {
+class MainPresenter @Inject constructor(): ViewModel() {
 
-    var heroesList: LiveData<PagedList<Heroes.Hero>>
+    @Inject
+    lateinit var heroesRepository: HeroesRepository
+    lateinit var heroesList: LiveData<PagedList<Heroes.Hero>>
     private val compositeDisposable = CompositeDisposable()
     private val pageSize = 20
-    private val heroesDataSourceFactory: HeroesDataSourceFactory
+    private lateinit var heroesDataSourceFactory: HeroesDataSourceFactory
 
-    init {
-        heroesDataSourceFactory = HeroesDataSourceFactory(compositeDisposable, heroesRepositoryModel.instance())
+    /*init {
+        heroesDataSourceFactory = HeroesDataSourceFactory(compositeDisposable, heroesRepository)
+        val config = PagedList.Config.Builder()
+                .setPageSize(pageSize)
+                .setInitialLoadSizeHint(pageSize * 2)
+                .setEnablePlaceholders(false)
+                .build()
+        heroesList = LivePagedListBuilder<Int, Heroes.Hero>(heroesDataSourceFactory, config).build()
+    }*/
+
+    fun findHeroes() {
+        heroesDataSourceFactory = HeroesDataSourceFactory(compositeDisposable, heroesRepository)
         val config = PagedList.Config.Builder()
                 .setPageSize(pageSize)
                 .setInitialLoadSizeHint(pageSize * 2)

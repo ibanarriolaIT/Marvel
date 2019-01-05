@@ -1,26 +1,33 @@
 package com.ibanarriola.testapplication.view.activity
 
 import android.arch.lifecycle.Observer
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.LinearLayout
-import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.testapplication.R
-import com.ibanarriola.testapplication.kodein.heroesRepositoryModel
 import com.ibanarriola.testapplication.repository.datasource.State
 import com.ibanarriola.testapplication.repository.model.Heroes
 import com.ibanarriola.testapplication.view.adapter.HeroAdapter
 import com.ibanarriola.testapplication.view.adapter.OnHeroClickListener
 import com.ibanarriola.testapplication.view.presenter.MainPresenter
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), OnHeroClickListener {
+class MainActivity : DaggerAppCompatActivity(), OnHeroClickListener {
+
+    @Inject
+    lateinit var app : Context
+    @Inject
+    lateinit var mainPresenter: MainPresenter
 
     private lateinit var heroesAdapter: HeroAdapter
-    private val mainPresenter: MainPresenter = heroesRepositoryModel.instance()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +43,7 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener {
     }
 
     private fun initAdapter() {
+        mainPresenter.findHeroes()
         heroesAdapter = HeroAdapter()
         heroes_list.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         heroes_list.adapter = heroesAdapter
