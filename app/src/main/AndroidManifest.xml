@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-   package="com.ibanarriola.testapplication">
+   package="com.ibanarriola.marvelheroes">
 
    <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,10 +13,10 @@
       android:theme="@style/AppTheme"
       android:usesCleartextTraffic="true">
       <activity
-         android:name=".view.activity.HeroDetailActivity"
+         android:name="com.ibanarriola.marvelheroes.view.activity.HeroDetailActivity"
          android:label="@string/title_activity_hero_detail"
          android:theme="@style/AppTheme.NoActionBar"></activity>
-      <activity android:name=".view.activity.MainActivity">
+      <activity android:name="com.ibanarriola.marvelheroes.view.activity.MainActivity">
          <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

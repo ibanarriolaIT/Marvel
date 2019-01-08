@@ -1,11 +1,10 @@
-package com.ibanarriola.testapplication.repository.datasource.heroes
+package com.ibanarriola.marvelheroes.repository.datasource.heroes
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
-import com.ibanarriola.testapplication.repository.HeroesRepository
-import com.ibanarriola.testapplication.repository.datasource.ApiDataSource
-import com.ibanarriola.testapplication.repository.datasource.State
-import com.ibanarriola.testapplication.repository.model.Heroes
+import com.ibanarriola.marvelheroes.repository.HeroesRepository
+import com.ibanarriola.marvelheroes.repository.datasource.State
+import com.ibanarriola.marvelheroes.repository.model.Heroes
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

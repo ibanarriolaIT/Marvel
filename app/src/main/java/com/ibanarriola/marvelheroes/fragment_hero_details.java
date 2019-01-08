@@ -1,4 +1,4 @@
-package com.ibanarriola.testapplication;
+package com.ibanarriola.marvelheroes;
 
 import android.content.Context;
 import android.net.Uri;

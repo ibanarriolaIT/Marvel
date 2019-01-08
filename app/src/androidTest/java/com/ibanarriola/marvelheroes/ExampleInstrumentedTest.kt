@@ -1,4 +1,4 @@
-package com.ibanarriola.testapplication
+package com.ibanarriola.marvelheroes
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

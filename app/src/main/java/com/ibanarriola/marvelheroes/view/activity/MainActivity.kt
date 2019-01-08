@@ -1,4 +1,4 @@
-package com.ibanarriola.testapplication.view.activity
+package com.ibanarriola.marvelheroes.view.activity
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
@@ -8,13 +8,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.LinearLayout
 import com.github.salomonbrys.kodein.instance
-import com.ibanarriola.testapplication.R
-import com.ibanarriola.testapplication.kodein.heroesRepositoryModel
-import com.ibanarriola.testapplication.repository.datasource.State
-import com.ibanarriola.testapplication.repository.model.Heroes
-import com.ibanarriola.testapplication.view.adapter.HeroAdapter
-import com.ibanarriola.testapplication.view.adapter.OnHeroClickListener
-import com.ibanarriola.testapplication.view.presenter.MainPresenter
+import com.ibanarriola.marvelheroes.R
+import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
+import com.ibanarriola.marvelheroes.repository.datasource.State
+import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.view.adapter.HeroAdapter
+import com.ibanarriola.marvelheroes.view.adapter.OnHeroClickListener
+import com.ibanarriola.marvelheroes.view.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), OnHeroClickListener {

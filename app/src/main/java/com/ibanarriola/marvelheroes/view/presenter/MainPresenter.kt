@@ -1,4 +1,4 @@
-package com.ibanarriola.testapplication.view.presenter
+package com.ibanarriola.marvelheroes.view.presenter
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Transformations
@@ -6,11 +6,11 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.github.salomonbrys.kodein.instance
-import com.ibanarriola.testapplication.kodein.heroesRepositoryModel
-import com.ibanarriola.testapplication.repository.datasource.State
-import com.ibanarriola.testapplication.repository.datasource.heroes.HeroesDataSource
-import com.ibanarriola.testapplication.repository.datasource.heroes.HeroesDataSourceFactory
-import com.ibanarriola.testapplication.repository.model.Heroes
+import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
+import com.ibanarriola.marvelheroes.repository.datasource.State
+import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSource
+import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSourceFactory
+import com.ibanarriola.marvelheroes.repository.model.Heroes
 import io.reactivex.disposables.CompositeDisposable
 
 class MainPresenter : ViewModel() {

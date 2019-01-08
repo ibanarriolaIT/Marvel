@@ -1,4 +1,4 @@
-package com.ibanarriola.testapplication
+package com.ibanarriola.marvelheroes
 
 import org.junit.Test
 

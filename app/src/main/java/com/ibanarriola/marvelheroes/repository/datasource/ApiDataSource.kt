@@ -1,6 +1,6 @@
-package com.ibanarriola.testapplication.repository.datasource
+package com.ibanarriola.marvelheroes.repository.datasource
 
-import com.ibanarriola.testapplication.repository.model.Heroes
+import com.ibanarriola.marvelheroes.repository.model.Heroes
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers

@@ -6,7 +6,7 @@
    app:startDestination="@id/mainActivity">
    <fragment
       android:id="@+id/heroes_list_fragment"
-      android:name="com.ibanarriola.testapplication.heroes_list_fragment"
+      android:name="com.ibanarriola.marvelheroes.heroes_list_fragment"
       android:label="fragment_heroes_list_fragment"
       tools:layout="@layout/fragment_heroes_list" >
       <action
@@ -15,12 +15,12 @@
    </fragment>
    <fragment
       android:id="@+id/fragment_hero_details"
-      android:name="com.ibanarriola.testapplication.fragment_hero_details"
+      android:name="com.ibanarriola.marvelheroes.fragment_hero_details"
       android:label="fragment_hero_details"
       tools:layout="@layout/fragment_hero_details" />
    <activity
       android:id="@+id/mainActivity"
-      android:name="com.ibanarriola.testapplication.view.activity.MainActivity"
+      android:name="com.ibanarriola.marvelheroes.view.activity.MainActivity"
       android:label="activity_main"
       tools:layout="@layout/activity_main" />
 </navigation>

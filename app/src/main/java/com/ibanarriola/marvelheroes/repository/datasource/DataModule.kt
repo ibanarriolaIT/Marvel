@@ -1,4 +1,4 @@
-package com.ibanarriola.testapplication.repository.datasource
+package com.ibanarriola.marvelheroes.repository.datasource
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
