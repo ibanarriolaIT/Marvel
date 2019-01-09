@@ -1,40 +1,35 @@
 package com.ibanarriola.marvelheroes.view.presenter
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
-import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
-import com.ibanarriola.marvelheroes.repository.datasource.State
-import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSource
-import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSourceFactory
+import com.ibanarriola.marvelheroes.repository.HeroesRepository
 import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.view.activity.ActivityStates
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class MainPresenter : ViewModel() {
 
-    var heroesList: LiveData<PagedList<Heroes.Hero>>
     private val compositeDisposable = CompositeDisposable()
-    private val pageSize = 20
-    private val heroesDataSourceFactory: HeroesDataSourceFactory
+    private val heroesRepository: HeroesRepository = heroesRepositoryModel.instance()
+    private lateinit var activity: ActivityStates
 
-    init {
-        heroesDataSourceFactory = HeroesDataSourceFactory(compositeDisposable, heroesRepositoryModel.instance())
-        val config = PagedList.Config.Builder()
-                .setPageSize(pageSize)
-                .setInitialLoadSizeHint(pageSize * 2)
-                .setEnablePlaceholders(false)
-                .build()
-        heroesList = LivePagedListBuilder<Int, Heroes.Hero>(heroesDataSourceFactory, config).build()
+    fun setActivityListener(activity: ActivityStates) {
+        this.activity = activity
     }
 
-    fun getState(): LiveData<State> = Transformations.switchMap<HeroesDataSource, State>(
-            heroesDataSourceFactory.heroDataSourceLiveData, HeroesDataSource::state)
-
-    fun listIsEmpty(): Boolean {
-        return heroesList.value?.isEmpty() ?: true
+    fun getHeroesFromRepository(page: Int) {
+        activity.loading()
+        heroesRepository.getHeroes(page).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe({ dataResult ->
+            activity.onHeroesReady(dataResult.data.results)
+        }, { error ->
+            activity.onError(error.message)
+        })
     }
 
     override fun onCleared() {

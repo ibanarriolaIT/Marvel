@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import com.ibanarriola.marvelheroes.R
 import com.ibanarriola.marvelheroes.glide.GlideApp
 import com.ibanarriola.marvelheroes.repository.datasource.State
@@ -13,14 +14,16 @@ import com.ibanarriola.marvelheroes.repository.model.Heroes
 import kotlinx.android.synthetic.main.hero_item.view.*
 import java.text.DecimalFormat
 
-class HeroAdapter : PagedListAdapter<Heroes.Hero, HeroViewHolder>(HeroDiffCallback) {
+class HeroAdapter(val heroes: List<Heroes.Hero>) : RecyclerView.Adapter<HeroViewHolder>() {
 
-    private var state = State.LOADING
+
+    override fun getItemCount() = heroes.size
+
     private lateinit var heroViewHolder: HeroViewHolder
     private lateinit var onHeroClickListener: OnHeroClickListener
 
     override fun onBindViewHolder(holder: HeroViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(heroes[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroViewHolder {
@@ -29,25 +32,8 @@ class HeroAdapter : PagedListAdapter<Heroes.Hero, HeroViewHolder>(HeroDiffCallba
         return heroViewHolder
     }
 
-    companion object {
-        val HeroDiffCallback = object : DiffUtil.ItemCallback<Heroes.Hero>() {
-            override fun areItemsTheSame(oldItem: Heroes.Hero, newItem: Heroes.Hero): Boolean {
-                return oldItem.title == newItem.title
-            }
-
-            override fun areContentsTheSame(oldItem: Heroes.Hero, newItem: Heroes.Hero): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
-
     fun setHeroClickListener(onHeroClickListener: OnHeroClickListener) {
         this.onHeroClickListener = onHeroClickListener
-    }
-
-    fun setState(state: State) {
-        this.state = state
-        notifyItemChanged(super.getItemCount())
     }
 }
 
