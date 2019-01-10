@@ -3,6 +3,8 @@ package com.ibanarriola.marvelheroes.repository
 import com.ibanarriola.marvelheroes.repository.datasource.DataModule
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import io.reactivex.Single
+import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import java.security.MessageDigest
 import java.util.*
 
@@ -13,7 +15,7 @@ open class HeroesRepository {
     val apiDataSource = DataModule.create()
     val pageSize = 20
 
-    fun getHeroes(page: Int): Single<Heroes.DataResult> {
+    fun getHeroes(page: Int): Deferred<Response<Heroes.DataResult>> {
         val now = Date().time.toString()
         val hash = generateHash(now + privateKey + publicKey)
         val offset: Int = page * pageSize

@@ -17,7 +17,6 @@ import com.ibanarriola.marvelheroes.view.adapter.HeroAdapter
 import com.ibanarriola.marvelheroes.view.adapter.OnHeroClickListener
 import com.ibanarriola.marvelheroes.view.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
-import android.widget.RelativeLayout
 
 
 
