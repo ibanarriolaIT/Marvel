@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto"
    xmlns:tools="http://schemas.android.com/tools"
+   android:id="@+id/navigation_drawer_layout"
    android:layout_width="match_parent"
    android:layout_height="match_parent"
-   tools:context=".view.activity.MainActivity"
-   android:orientation="vertical">
+   tools:context=".view.activity.MainActivity">
 
-   <android.support.v7.widget.RecyclerView
-      android:id="@+id/heroes_list"
+   <fragment
+      android:id="@+id/fragment"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
+      android:layout_height="match_parent"
+      android:name="androidx.navigation.fragment.NavHostFragment"
+      app:defaultNavHost="true"
+      app:navGraph="@navigation/mobile_navigation"/>
 
-   <ProgressBar
-      android:id="@+id/progress"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:visibility="gone"/>
-
-</LinearLayout>
+</FrameLayout>

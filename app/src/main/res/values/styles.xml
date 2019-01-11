@@ -29,6 +29,11 @@
       <item name="android:fontFamily">ROBOTO_LIGHT</item>
    </style>
 
+   <style name="ToolbarTheme" parent="AppTheme">
+      <item name="android:textColorPrimary">@android:color/white</item>
+      <item name="android:textColorSecondary">@android:color/white</item>
+   </style>
+
    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
