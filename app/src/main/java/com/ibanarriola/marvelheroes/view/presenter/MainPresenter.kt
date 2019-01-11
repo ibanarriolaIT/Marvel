@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel
 import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
 import com.ibanarriola.marvelheroes.repository.HeroesRepository
-import com.ibanarriola.marvelheroes.view.activity.ActivityStates
+import com.ibanarriola.marvelheroes.view.activity.ActivityStatesListener
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -15,25 +15,21 @@ class MainPresenter : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
     private val heroesRepository: HeroesRepository = heroesRepositoryModel.instance()
-    private lateinit var activity: ActivityStates
+    private lateinit var listener: ActivityStatesListener
 
-    fun setActivityListener(activity: ActivityStates) {
-        this.activity = activity
+    fun setActivityListener(listener: ActivityStatesListener) {
+        this.listener = listener
     }
 
     fun getHeroesFromRepository(page: Int) {
-        activity.loading()
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = heroesRepository.getHeroes(page).await()
-                if (response.isSuccessful)
-                    activity.onHeroesReady(response.body()!!.data.results)
-                else
-                    activity.onError(response.errorBody().toString())
+                val response = heroesRepository.getHeroes(page)
+                listener.onHeroesReady(response.data.results)
             } catch (e: HttpException) {
-                activity.onError(e.message())
+                listener.onError(e.message())
             } catch (e: Throwable) {
-                activity.onError(e.message)
+                listener.onError(e.message)
             }
         }
     }

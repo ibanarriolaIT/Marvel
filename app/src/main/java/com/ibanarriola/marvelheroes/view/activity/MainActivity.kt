@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.Toast
 import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.R
@@ -19,8 +18,7 @@ import com.ibanarriola.marvelheroes.view.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
-class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStates {
+class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStatesListener {
     private lateinit var heroesAdapter: HeroAdapter
     private val mainPresenter: MainPresenter = heroesRepositoryModel.instance()
     private val heroesList = mutableListOf<Heroes.Hero>()
@@ -50,8 +48,9 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStates {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (heroesList.size - 8 < (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                && progress.visibility == View.GONE) {
+                        && progress.visibility == View.GONE) {
                     page++
+                    progress.visibility = View.VISIBLE
                     mainPresenter.getHeroesFromRepository(page)
                 }
 
@@ -60,12 +59,9 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStates {
     }
 
     private fun initState() {
+        progress.visibility = View.VISIBLE
         mainPresenter.setActivityListener(this)
         mainPresenter.getHeroesFromRepository(page)
-    }
-
-    override fun loading() {
-        progress.visibility = View.VISIBLE
     }
 
     override fun onHeroesReady(heroes: List<Heroes.Hero>) {
@@ -79,7 +75,7 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStates {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
-    private fun modifyProgressBar(){
+    private fun modifyProgressBar() {
         if (!progressBarUpdated) {
             progress.setBackgroundColor(getColor(R.color.grey50))
             val parameter = progress.layoutParams as LinearLayout.LayoutParams
@@ -92,8 +88,7 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStates {
 
 }
 
-interface ActivityStates {
-    fun loading()
+interface ActivityStatesListener {
     fun onHeroesReady(hero: List<Heroes.Hero>)
     fun onError(error: String?)
 }
