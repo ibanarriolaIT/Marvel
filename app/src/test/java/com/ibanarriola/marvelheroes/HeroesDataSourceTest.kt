@@ -16,7 +16,8 @@ import java.util.*
 
 class HeroesDataSourceTest {
 
-    val heroesRepository: HeroesRepository = mock(HeroesRepository::class.java)
+    @Mock
+    lateinit var heroesRepository: HeroesRepository
     @Mock
     lateinit var activityListener: ActivityStatesListener
 
@@ -25,7 +26,7 @@ class HeroesDataSourceTest {
     val data = Heroes.Data(results)
     val dataResult = Heroes.DataResult(data)
 
-    private val mainPresenter = MainPresenter()
+
 
     @Before
     fun initTest() {
@@ -33,9 +34,11 @@ class HeroesDataSourceTest {
     }
 
     @Test
-    fun testLoadInitialSuccess() = runBlocking(Dispatchers.Main) {
+    fun testLoadInitialSuccess() = runBlocking {
         `when`(heroesRepository.getHeroes(0)).thenReturn(dataResult)
-        mainPresenter.getHeroesFromRepository(0)
-        verify(activityListener).onHeroesReady(dataResult.data.results)
+        val mainPresenter = MainPresenter(Dispatchers.IO).apply {
+            setActivityListener(activityListener)
+            getHeroesFromRepository(0)
+        }
     }
 }

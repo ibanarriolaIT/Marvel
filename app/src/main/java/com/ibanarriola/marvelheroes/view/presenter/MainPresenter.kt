@@ -5,24 +5,25 @@ import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
 import com.ibanarriola.marvelheroes.repository.HeroesRepository
 import com.ibanarriola.marvelheroes.view.activity.ActivityStatesListener
-import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import retrofit2.HttpException
+import kotlin.coroutines.CoroutineContext
 
-class MainPresenter : ViewModel() {
+class MainPresenter(private val uiContext: CoroutineContext = Dispatchers.Main) : ViewModel(), CoroutineScope {
 
-    private val compositeDisposable = CompositeDisposable()
     private val heroesRepository: HeroesRepository = heroesRepositoryModel.instance()
     private lateinit var listener: ActivityStatesListener
+
+    private var job: Job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = uiContext + job
 
     fun setActivityListener(listener: ActivityStatesListener) {
         this.listener = listener
     }
 
     fun getHeroesFromRepository(page: Int) {
-        GlobalScope.launch(Dispatchers.Main) {
+        launch {
             try {
                 val response = heroesRepository.getHeroes(page)
                 listener.onHeroesReady(response.data.results)
@@ -36,6 +37,6 @@ class MainPresenter : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        compositeDisposable.dispose()
+        job.cancel()
     }
 }

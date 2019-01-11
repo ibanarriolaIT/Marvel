@@ -3,7 +3,6 @@ package com.ibanarriola.marvelheroes.repository
 import com.ibanarriola.marvelheroes.Mockable
 import com.ibanarriola.marvelheroes.repository.datasource.DataModule
 import com.ibanarriola.marvelheroes.repository.model.Heroes
-import kotlinx.coroutines.Deferred
 import java.security.MessageDigest
 import java.util.*
 
