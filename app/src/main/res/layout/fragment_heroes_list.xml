@@ -3,7 +3,8 @@
    xmlns:tools="http://schemas.android.com/tools"
    android:layout_width="match_parent"
    android:layout_height="match_parent"
-   tools:context=".view.fragments.heroes_list_fragment">
+   tools:context=".view.fragments.HeroesListFragment"
+   android:background="@color/white">
 
    <android.support.v7.widget.RecyclerView
       android:id="@+id/heroes_list"
