@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 
 class HeroesDataSource(private val heroesRepository: HeroesRepository,
                        private val compositeDisposable: CompositeDisposable)
-    :PageKeyedDataSource<Int, Heroes.Hero>() {
+    : PageKeyedDataSource<Int, Heroes.Hero>() {
 
     var state: MutableLiveData<State> = MutableLiveData()
     private var retryCompletable: Completable? = null
