@@ -24,10 +24,12 @@ class HeroesDataSourceTest {
     @Mock
     lateinit var params: PageKeyedDataSource.LoadInitialParams<Int>
     @Mock
-    lateinit var callback: PageKeyedDataSource.LoadInitialCallback<Int, Heroes.Hero>
+    lateinit var callback: PageKeyedDataSource.LoadInitialCallback<Int, Heroes.MapHero>
 
     private val testScheduler = TestScheduler()
-    val hero = Heroes.Hero(1, "superman", "holasuperman", 1, null, null)
+    val prices = listOf<Heroes.Prices>(Heroes.Prices(2.0))
+    val thumbnail = Heroes.Thumbnail("imageurl", "png")
+    val hero = Heroes.Hero(1, "superman", "holasuperman", 1, thumbnail, prices)
     val results = Arrays.asList(hero)
     val data = Heroes.Data(results)
     val dataResult = Heroes.DataResult(data)
@@ -35,7 +37,6 @@ class HeroesDataSourceTest {
     val compositeDisposable = CompositeDisposable()
 
     lateinit var heroesDataSource: HeroesDataSource
-    private val heroesPublishSubject = PublishSubject.create<Heroes.DataResult>()
 
     @Before
     fun initTest(){
