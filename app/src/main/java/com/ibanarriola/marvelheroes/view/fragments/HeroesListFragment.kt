@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.R
@@ -24,8 +23,9 @@ class HeroesListFragment : Fragment(), OnHeroClickListener {
 
     lateinit var currentView: View
 
-    override fun OnHeroClick(hero: Heroes.Hero) {
-        val bundle = bundleOf("hero" to hero)
+    override fun OnHeroClick(hero: Heroes.MapHero) {
+        val bundle = Bundle()
+        bundle.putParcelable("hero", hero)
         currentView.findNavController().navigate(R.id.action_heroes_list_fragment_to_fragment_hero_details, bundle)
     }
 

@@ -13,17 +13,20 @@ import io.reactivex.schedulers.Schedulers
 
 class HeroesDataSource(private val heroesRepository: HeroesRepository,
                        private val compositeDisposable: CompositeDisposable)
-    :PageKeyedDataSource<Int, Heroes.Hero>() {
+    :PageKeyedDataSource<Int, Heroes.MapHero>() {
 
     var state: MutableLiveData<State> = MutableLiveData()
     private var retryCompletable: Completable? = null
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Heroes.Hero>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Heroes.MapHero>) {
         updateState(State.LOADING)
         compositeDisposable.add(heroesRepository.getHeroes(0).subscribe(
                 { heroes ->
                     updateState(State.DONE)
-                    callback.onResult(heroes.data.results,
+                    val mapHeroes = mutableListOf<Heroes.MapHero>()
+                    heroes.data.results.forEach { hero -> mapHeroes.add(
+                            Heroes.MapHero.ModelMapper.from(hero)) }
+                    callback.onResult(mapHeroes,
                             null,
                             1
                     )
@@ -35,12 +38,15 @@ class HeroesDataSource(private val heroesRepository: HeroesRepository,
         ))
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Heroes.Hero>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Heroes.MapHero>) {
         updateState(State.LOADING)
         compositeDisposable.add(heroesRepository.getHeroes(params.key).subscribe(
                 { heroes ->
                     updateState(State.DONE)
-                    callback.onResult(heroes.data.results,
+                    val mapHeroes = mutableListOf<Heroes.MapHero>()
+                    heroes.data.results.forEach { hero -> mapHeroes.add(
+                            Heroes.MapHero.ModelMapper.from(hero)) }
+                    callback.onResult(mapHeroes,
                             params.key + 1
                     )
                 },
@@ -51,7 +57,7 @@ class HeroesDataSource(private val heroesRepository: HeroesRepository,
         ))
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Heroes.Hero>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Heroes.MapHero>) {
     }
 
     private fun updateState(state: State) {

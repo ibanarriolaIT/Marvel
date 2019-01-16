@@ -8,11 +8,11 @@ import io.reactivex.disposables.CompositeDisposable
 
 class HeroesDataSourceFactory(private val compositeDisposable: CompositeDisposable,
                               private val heroesRepository: HeroesRepository)
-    : DataSource.Factory<Int, Heroes.Hero>() {
+    : DataSource.Factory<Int, Heroes.MapHero>() {
 
     val heroDataSourceLiveData = MutableLiveData<HeroesDataSource>()
 
-    override fun create(): DataSource<Int, Heroes.Hero> {
+    override fun create(): DataSource<Int, Heroes.MapHero> {
         val heroesDataSource = HeroesDataSource(heroesRepository, compositeDisposable)
         heroDataSourceLiveData.postValue(heroesDataSource)
         return heroesDataSource

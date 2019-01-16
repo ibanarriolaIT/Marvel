@@ -3,6 +3,7 @@ package com.ibanarriola.marvelheroes.repository
 import com.ibanarriola.marvelheroes.Mockable
 import com.ibanarriola.marvelheroes.repository.datasource.DataModule
 import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.utils.generateHash
 import io.reactivex.Single
 import java.security.MessageDigest
 import java.util.*
@@ -17,16 +18,8 @@ class HeroesRepository {
 
     fun getHeroes(page: Int): Single<Heroes.DataResult> {
         val now = Date().time.toString()
-        val hash = generateHash(now + privateKey + publicKey)
+        val hash = (now + privateKey + publicKey).generateHash()
         val offset: Int = page * pageSize
         return apiDataSource.getHeroes(now, publicKey, hash, offset, pageSize)
-    }
-
-    fun generateHash(variable: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        val digested = md.digest(variable.toByteArray())
-        return digested.joinToString("") {
-            String.format("%02x", it)
-        }
     }
 }

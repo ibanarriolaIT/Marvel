@@ -1,45 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content"
-   android:layout_margin="10dp"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-   <android.support.v7.widget.CardView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:cardElevation="5dp">
+   <data>
+      <variable
+         name="hero"
+         type="com.ibanarriola.marvelheroes.repository.model.Heroes.MapHero" />
+   </data>
 
-      <RelativeLayout
+   <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <android.support.v7.widget.CardView
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:padding="10dp">
+         android:layout_margin="5dp"
+         app:cardCornerRadius="10dp"
+         app:cardElevation="5dp">
 
-         <ImageView
-            android:id="@+id/hero_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/hero_image" />
-
-         <TextView
-            android:id="@+id/hero_name"
-            android:layout_width="wrap_content"
+         <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/AppTheme.Title"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/hero_image"/>
+            android:padding="10dp">
 
-         <TextView
-            android:id="@+id/hero_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            style="@style/AppTheme.Price"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/hero_image"
-            android:layout_below="@+id/hero_name"/>
+            <ImageView
+               android:id="@+id/hero_image"
+               android:layout_width="100dp"
+               android:layout_height="100dp"
+               android:contentDescription="@string/hero_image"
+               app:photoFilePath="@{hero.smallImage}"/>
 
-      </RelativeLayout>
+            <TextView
+               android:id="@+id/hero_name"
+               style="@style/AppTheme.Title"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="10dp"
+               android:layout_toEndOf="@+id/hero_image"
+               android:text="@{hero.title}" />
 
-   </android.support.v7.widget.CardView>
-</LinearLayout>
+            <TextView
+               android:id="@+id/hero_price"
+               style="@style/AppTheme.Price"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/hero_name"
+               android:layout_marginStart="10dp"
+               android:layout_marginTop="10dp"
+               android:layout_toEndOf="@+id/hero_image"
+               android:text="@{hero.price}"/>
+
+         </RelativeLayout>
+
+      </android.support.v7.widget.CardView>
+   </LinearLayout>
+</layout>

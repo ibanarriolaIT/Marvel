@@ -1,19 +1,22 @@
 package com.ibanarriola.marvelheroes.view.adapter
 
 import android.arch.paging.PagedListAdapter
+import android.databinding.BindingAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.ibanarriola.marvelheroes.R
+import com.ibanarriola.marvelheroes.databinding.HeroItemBinding
 import com.ibanarriola.marvelheroes.glide.GlideApp
 import com.ibanarriola.marvelheroes.repository.datasource.State
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import kotlinx.android.synthetic.main.hero_item.view.*
 import java.text.DecimalFormat
 
-class HeroAdapter : PagedListAdapter<Heroes.Hero, HeroViewHolder>(HeroDiffCallback) {
+class HeroAdapter : PagedListAdapter<Heroes.MapHero, HeroViewHolder>(HeroDiffCallback) {
 
     private var state = State.LOADING
     private lateinit var heroViewHolder: HeroViewHolder
@@ -30,12 +33,12 @@ class HeroAdapter : PagedListAdapter<Heroes.Hero, HeroViewHolder>(HeroDiffCallba
     }
 
     companion object {
-        val HeroDiffCallback = object : DiffUtil.ItemCallback<Heroes.Hero>() {
-            override fun areItemsTheSame(oldItem: Heroes.Hero, newItem: Heroes.Hero): Boolean {
+        val HeroDiffCallback = object : DiffUtil.ItemCallback<Heroes.MapHero>() {
+            override fun areItemsTheSame(oldItem: Heroes.MapHero, newItem: Heroes.MapHero): Boolean {
                 return oldItem.title == newItem.title
             }
 
-            override fun areContentsTheSame(oldItem: Heroes.Hero, newItem: Heroes.Hero): Boolean {
+            override fun areContentsTheSame(oldItem: Heroes.MapHero, newItem: Heroes.MapHero): Boolean {
                 return oldItem == newItem
             }
         }
@@ -51,7 +54,7 @@ class HeroAdapter : PagedListAdapter<Heroes.Hero, HeroViewHolder>(HeroDiffCallba
     }
 }
 
-class HeroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class HeroViewHolder(val binding: HeroItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     private lateinit var onHeroClickListener: OnHeroClickListener
 
@@ -59,20 +62,13 @@ class HeroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         this.onHeroClickListener = onHeroClickListener
     }
 
-    fun bind(hero: Heroes.Hero?) {
+    fun bind(hero: Heroes.MapHero?) {
         if (hero != null) {
-            itemView.hero_name.text = hero.title
-            val df = DecimalFormat("0.##")
-            if (hero.prices!![0].price != 0.0) {
-                itemView.hero_price.visibility = View.VISIBLE
-                itemView.hero_price.text = itemView.context.getString(R.string.price_text, df.format(hero.prices[0].price))
-            } else {
+            binding.hero = hero
+            binding.executePendingBindings()
+            if (hero.price.equals("0€")) {
                 itemView.hero_price.visibility = View.GONE
             }
-            GlideApp.with(itemView)
-                    .load(hero.thumbnail!!.path + "/standard_large." + hero.thumbnail.extension)
-                    .placeholder(R.mipmap.marvel)
-                    .into(itemView.hero_image)
             itemView.setOnClickListener {
                 onHeroClickListener.OnHeroClick(hero)
             }
@@ -81,13 +77,13 @@ class HeroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     companion object {
         fun create(parent: ViewGroup): HeroViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.hero_item, parent, false)
-            return HeroViewHolder(view)
+            val inflater = LayoutInflater.from(parent.context)
+            val heroItemBinding: HeroItemBinding = HeroItemBinding.inflate(inflater, parent, false)
+            return HeroViewHolder(heroItemBinding)
         }
     }
 }
 
 interface OnHeroClickListener {
-    fun OnHeroClick(hero: Heroes.Hero)
+    fun OnHeroClick(hero: Heroes.MapHero)
 }

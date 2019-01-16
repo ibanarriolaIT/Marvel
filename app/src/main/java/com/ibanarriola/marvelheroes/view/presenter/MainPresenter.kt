@@ -15,7 +15,7 @@ import io.reactivex.disposables.CompositeDisposable
 
 class MainPresenter : ViewModel() {
 
-    var heroesList: LiveData<PagedList<Heroes.Hero>>
+    var heroesList: LiveData<PagedList<Heroes.MapHero>>
     private val compositeDisposable = CompositeDisposable()
     private val pageSize = 20
     private val heroesDataSourceFactory: HeroesDataSourceFactory
@@ -28,7 +28,7 @@ class MainPresenter : ViewModel() {
                 .setPrefetchDistance(pageSize * 2)
                 .setEnablePlaceholders(false)
                 .build()
-        heroesList = LivePagedListBuilder<Int, Heroes.Hero>(heroesDataSourceFactory, config).build()
+        heroesList = LivePagedListBuilder<Int, Heroes.MapHero>(heroesDataSourceFactory, config).build()
     }
 
     fun getState(): LiveData<State> = Transformations.switchMap<HeroesDataSource, State>(
