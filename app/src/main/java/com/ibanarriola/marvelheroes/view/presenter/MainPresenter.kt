@@ -5,7 +5,10 @@ import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
 import com.ibanarriola.marvelheroes.repository.HeroesRepository
 import com.ibanarriola.marvelheroes.view.activity.ActivityStatesListener
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import kotlin.coroutines.CoroutineContext
 

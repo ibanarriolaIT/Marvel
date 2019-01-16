@@ -1,12 +1,10 @@
 package com.ibanarriola.marvelheroes.view.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.ibanarriola.marvelheroes.R
-import com.ibanarriola.marvelheroes.glide.GlideApp
 import com.ibanarriola.marvelheroes.repository.model.Heroes
-
 import kotlinx.android.synthetic.main.activity_hero_detail.*
 import java.text.DecimalFormat
 
