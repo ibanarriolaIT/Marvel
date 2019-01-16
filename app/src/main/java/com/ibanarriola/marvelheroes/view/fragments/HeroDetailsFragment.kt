@@ -19,7 +19,7 @@ class HeroDetailsFragment : Fragment() {
         val myView: View = binding.root
         val hero: Heroes.MapHero? = arguments!!.getParcelable("hero")
         binding.hero = hero
-        if(hero?.price.equals("0€"))
+        if (hero?.price.equals("0€"))
             myView.hero_price.visibility = View.GONE
         return myView
     }

@@ -10,7 +10,7 @@ object Heroes {
     const val SMALL_IMAGE = "/standard_large."
     const val BIG_IMAGE = "/standard_fantastic."
 
-    data class MapHero(val title: String?, val smallImage: String?, val bigImage: String?, val price: String?, val description: String?): Parcelable {
+    data class MapHero(val title: String?, val smallImage: String?, val bigImage: String?, val price: String?, val description: String?) : Parcelable {
 
         object ModelMapper {
             fun from(form: Hero): MapHero {

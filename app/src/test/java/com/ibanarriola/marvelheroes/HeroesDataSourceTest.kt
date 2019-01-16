@@ -1,19 +1,19 @@
 package com.ibanarriola.marvelheroes
 
-import android.arch.paging.DataSource
-import io.reactivex.Observable
 import android.arch.paging.PageKeyedDataSource
 import com.ibanarriola.marvelheroes.repository.HeroesRepository
 import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSource
 import com.ibanarriola.marvelheroes.repository.model.Heroes
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
 import org.junit.Before
 import org.junit.Test
-import io.reactivex.subjects.PublishSubject
-import org.mockito.*
-import org.mockito.Mockito.*
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.mock
+import org.mockito.MockitoAnnotations
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -27,7 +27,7 @@ class HeroesDataSourceTest {
     lateinit var callback: PageKeyedDataSource.LoadInitialCallback<Int, Heroes.MapHero>
 
     private val testScheduler = TestScheduler()
-    val prices = listOf<Heroes.Prices>(Heroes.Prices(2.0))
+    val prices = listOf(Heroes.Prices(2.0))
     val thumbnail = Heroes.Thumbnail("imageurl", "png")
     val hero = Heroes.Hero(1, "superman", "holasuperman", 1, thumbnail, prices)
     val results = Arrays.asList(hero)
@@ -39,13 +39,13 @@ class HeroesDataSourceTest {
     lateinit var heroesDataSource: HeroesDataSource
 
     @Before
-    fun initTest(){
+    fun initTest() {
         MockitoAnnotations.initMocks(this)
 
     }
 
     @Test
-    fun testLoadInitialSuccess(){
+    fun testLoadInitialSuccess() {
         val observable = Observable.just(dataResult).delay(1, TimeUnit.SECONDS, testScheduler)
         heroesDataSource = HeroesDataSource(heroesRepository, compositeDisposable)
         val testObserver = TestObserver<Heroes.DataResult>()

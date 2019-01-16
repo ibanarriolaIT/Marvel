@@ -12,7 +12,9 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme"
       android:usesCleartextTraffic="true">
-      <activity android:name="com.ibanarriola.marvelheroes.view.activity.MainActivity">
+      <activity
+         android:name="com.ibanarriola.marvelheroes.view.activity.MainActivity"
+         android:configChanges="orientation|screenSize">
          <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

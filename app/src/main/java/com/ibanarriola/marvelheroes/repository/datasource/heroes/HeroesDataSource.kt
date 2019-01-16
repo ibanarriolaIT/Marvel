@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 
 class HeroesDataSource(private val heroesRepository: HeroesRepository,
                        private val compositeDisposable: CompositeDisposable)
-    :PageKeyedDataSource<Int, Heroes.MapHero>() {
+    : PageKeyedDataSource<Int, Heroes.MapHero>() {
 
     var state: MutableLiveData<State> = MutableLiveData()
     private var retryCompletable: Completable? = null
@@ -24,8 +24,10 @@ class HeroesDataSource(private val heroesRepository: HeroesRepository,
                 { heroes ->
                     updateState(State.DONE)
                     val mapHeroes = mutableListOf<Heroes.MapHero>()
-                    heroes.data.results.forEach { hero -> mapHeroes.add(
-                            Heroes.MapHero.ModelMapper.from(hero)) }
+                    heroes.data.results.forEach { hero ->
+                        mapHeroes.add(
+                                Heroes.MapHero.ModelMapper.from(hero))
+                    }
                     callback.onResult(mapHeroes,
                             null,
                             1
@@ -44,8 +46,10 @@ class HeroesDataSource(private val heroesRepository: HeroesRepository,
                 { heroes ->
                     updateState(State.DONE)
                     val mapHeroes = mutableListOf<Heroes.MapHero>()
-                    heroes.data.results.forEach { hero -> mapHeroes.add(
-                            Heroes.MapHero.ModelMapper.from(hero)) }
+                    heroes.data.results.forEach { hero ->
+                        mapHeroes.add(
+                                Heroes.MapHero.ModelMapper.from(hero))
+                    }
                     callback.onResult(mapHeroes,
                             params.key + 1
                     )

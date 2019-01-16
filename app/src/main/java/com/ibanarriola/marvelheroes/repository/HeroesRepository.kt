@@ -5,7 +5,6 @@ import com.ibanarriola.marvelheroes.repository.datasource.DataModule
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import com.ibanarriola.marvelheroes.utils.generateHash
 import io.reactivex.Single
-import java.security.MessageDigest
 import java.util.*
 
 @Mockable
