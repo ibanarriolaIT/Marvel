@@ -1,13 +1,11 @@
 package com.ibanarriola.testapplication.view.activity
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.ibanarriola.testapplication.R
 import com.ibanarriola.testapplication.glide.GlideApp
 import com.ibanarriola.testapplication.repository.model.Heroes
-
 import kotlinx.android.synthetic.main.activity_hero_detail.*
 import java.text.DecimalFormat
 

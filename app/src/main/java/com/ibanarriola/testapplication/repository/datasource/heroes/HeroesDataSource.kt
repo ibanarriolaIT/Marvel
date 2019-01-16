@@ -3,7 +3,6 @@ package com.ibanarriola.testapplication.repository.datasource.heroes
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
 import com.ibanarriola.testapplication.repository.HeroesRepository
-import com.ibanarriola.testapplication.repository.datasource.ApiDataSource
 import com.ibanarriola.testapplication.repository.datasource.State
 import com.ibanarriola.testapplication.repository.model.Heroes
 import io.reactivex.Completable
@@ -14,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 
 class HeroesDataSource(private val heroesRepository: HeroesRepository,
                        private val compositeDisposable: CompositeDisposable)
-    :PageKeyedDataSource<Int, Heroes.Hero>() {
+    : PageKeyedDataSource<Int, Heroes.Hero>() {
 
     var state: MutableLiveData<State> = MutableLiveData()
     private var retryCompletable: Completable? = null

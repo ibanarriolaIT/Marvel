@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.LinearLayout
@@ -21,12 +20,11 @@ import javax.inject.Inject
 class MainActivity : DaggerAppCompatActivity(), OnHeroClickListener {
 
     @Inject
-    lateinit var app : Context
+    lateinit var app: Context
     @Inject
     lateinit var mainPresenter: MainPresenter
 
     private lateinit var heroesAdapter: HeroAdapter
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

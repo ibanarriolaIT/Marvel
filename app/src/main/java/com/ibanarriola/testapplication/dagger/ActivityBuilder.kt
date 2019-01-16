@@ -10,5 +10,6 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector
     abstract fun bindMainActivity(): MainActivity
+
     abstract fun bindMainPresenter(): MainPresenter
 }

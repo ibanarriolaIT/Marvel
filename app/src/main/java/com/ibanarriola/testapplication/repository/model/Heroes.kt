@@ -6,7 +6,7 @@ import android.os.Parcelable
 object Heroes {
     data class DataResult(val data: Data)
     data class Data(val results: List<Hero>)
-    data class Hero(val id: Int, val title: String?, val description: String?, val pageCount: Int, val thumbnail: Thumbnail?, val prices: List<Prices>?): Parcelable {
+    data class Hero(val id: Int, val title: String?, val description: String?, val pageCount: Int, val thumbnail: Thumbnail?, val prices: List<Prices>?) : Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readInt(),
                 parcel.readString(),
@@ -39,7 +39,7 @@ object Heroes {
         }
     }
 
-    data class Thumbnail(val path: String, val extension: String): Parcelable {
+    data class Thumbnail(val path: String, val extension: String) : Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readString()!!,
                 parcel.readString()!!)
@@ -64,7 +64,7 @@ object Heroes {
         }
     }
 
-    data class Prices(val price: Double): Parcelable {
+    data class Prices(val price: Double) : Parcelable {
         constructor(parcel: Parcel) : this(parcel.readDouble())
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {

@@ -5,7 +5,6 @@ import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.testapplication.repository.HeroesRepository
 import com.ibanarriola.testapplication.repository.datasource.State
 import com.ibanarriola.testapplication.repository.datasource.heroes.HeroesDataSource
@@ -14,7 +13,7 @@ import com.ibanarriola.testapplication.repository.model.Heroes
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class MainPresenter @Inject constructor(): ViewModel() {
+class MainPresenter @Inject constructor() : ViewModel() {
 
     @Inject
     lateinit var heroesRepository: HeroesRepository
@@ -22,16 +21,6 @@ class MainPresenter @Inject constructor(): ViewModel() {
     private val compositeDisposable = CompositeDisposable()
     private val pageSize = 20
     private lateinit var heroesDataSourceFactory: HeroesDataSourceFactory
-
-    /*init {
-        heroesDataSourceFactory = HeroesDataSourceFactory(compositeDisposable, heroesRepository)
-        val config = PagedList.Config.Builder()
-                .setPageSize(pageSize)
-                .setInitialLoadSizeHint(pageSize * 2)
-                .setEnablePlaceholders(false)
-                .build()
-        heroesList = LivePagedListBuilder<Int, Heroes.Hero>(heroesDataSourceFactory, config).build()
-    }*/
 
     fun findHeroes() {
         heroesDataSourceFactory = HeroesDataSourceFactory(compositeDisposable, heroesRepository)

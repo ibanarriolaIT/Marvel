@@ -16,8 +16,10 @@
       <activity
          android:name=".view.activity.HeroDetailActivity"
          android:label="@string/title_activity_hero_detail"
+         android:configChanges="orientation|screenSize"
          android:theme="@style/AppTheme.NoActionBar"></activity>
-      <activity android:name=".view.activity.MainActivity">
+      <activity android:name=".view.activity.MainActivity"
+         android:configChanges="orientation|screenSize">
          <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
