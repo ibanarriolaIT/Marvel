@@ -8,9 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.ibanarriola.marvelheroes.R
 import com.ibanarriola.marvelheroes.databinding.FragmentHeroDetailBinding
-import com.ibanarriola.marvelheroes.glide.GlideApp
 import com.ibanarriola.marvelheroes.repository.model.Heroes
-import kotlinx.android.synthetic.main.fragment_hero_detail.*
+import kotlinx.android.synthetic.main.fragment_hero_detail.view.*
 
 class HeroDetailsFragment : Fragment() {
 
@@ -21,7 +20,9 @@ class HeroDetailsFragment : Fragment() {
         val hero: Heroes.MapHero? = arguments!!.getParcelable("hero")
         binding.hero = hero
         if(hero?.price.equals("0€"))
-            hero_price.visibility = View.GONE
+            myView.hero_price.visibility = View.GONE
         return myView
     }
+
+
 }
