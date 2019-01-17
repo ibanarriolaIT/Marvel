@@ -23,10 +23,8 @@ class HeroesDataSource(private val heroesRepository: HeroesRepository,
         compositeDisposable.add(heroesRepository.getHeroes(0).subscribe(
                 { heroes ->
                     updateState(State.DONE)
-                    val mapHeroes = mutableListOf<Heroes.MapHero>()
-                    heroes.data.results.forEach { hero ->
-                        mapHeroes.add(
-                                Heroes.MapHero.ModelMapper.from(hero))
+                    val mapHeroes = heroes.data.results.map {
+                        hero -> Heroes.MapHero.ModelMapper.from(hero)
                     }
                     callback.onResult(mapHeroes,
                             null,
