@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModel
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.ibanarriola.testapplication.repository.HeroesRepository
-import com.ibanarriola.testapplication.repository.datasource.State
 import com.ibanarriola.testapplication.repository.datasource.heroes.HeroesDataSource
 import com.ibanarriola.testapplication.repository.datasource.heroes.HeroesDataSourceFactory
 import com.ibanarriola.testapplication.repository.model.Heroes
@@ -30,13 +29,6 @@ class MainPresenter @Inject constructor() : ViewModel() {
                 .setEnablePlaceholders(false)
                 .build()
         heroesList = LivePagedListBuilder<Int, Heroes.Hero>(heroesDataSourceFactory, config).build()
-    }
-
-    fun getState(): LiveData<State> = Transformations.switchMap<HeroesDataSource, State>(
-            heroesDataSourceFactory.heroDataSourceLiveData, HeroesDataSource::state)
-
-    fun listIsEmpty(): Boolean {
-        return heroesList.value?.isEmpty() ?: true
     }
 
     override fun onCleared() {

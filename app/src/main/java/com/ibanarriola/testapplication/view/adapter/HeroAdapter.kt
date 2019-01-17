@@ -8,14 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.ibanarriola.testapplication.R
 import com.ibanarriola.testapplication.glide.GlideApp
-import com.ibanarriola.testapplication.repository.datasource.State
 import com.ibanarriola.testapplication.repository.model.Heroes
 import kotlinx.android.synthetic.main.hero_item.view.*
 import java.text.DecimalFormat
 
 class HeroAdapter : PagedListAdapter<Heroes.Hero, HeroViewHolder>(HeroDiffCallback) {
 
-    private var state = State.LOADING
     private lateinit var heroViewHolder: HeroViewHolder
     private lateinit var onHeroClickListener: OnHeroClickListener
 
@@ -43,11 +41,6 @@ class HeroAdapter : PagedListAdapter<Heroes.Hero, HeroViewHolder>(HeroDiffCallba
 
     fun setHeroClickListener(onHeroClickListener: OnHeroClickListener) {
         this.onHeroClickListener = onHeroClickListener
-    }
-
-    fun setState(state: State) {
-        this.state = state
-        notifyItemChanged(super.getItemCount())
     }
 }
 

@@ -5,10 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import android.widget.LinearLayout
 import com.ibanarriola.testapplication.R
-import com.ibanarriola.testapplication.repository.datasource.State
 import com.ibanarriola.testapplication.repository.model.Heroes
 import com.ibanarriola.testapplication.view.adapter.HeroAdapter
 import com.ibanarriola.testapplication.view.adapter.OnHeroClickListener
@@ -31,7 +29,6 @@ class MainActivity : DaggerAppCompatActivity(), OnHeroClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initAdapter()
-        initState()
     }
 
     override fun OnHeroClick(hero: Heroes.Hero) {
@@ -49,15 +46,6 @@ class MainActivity : DaggerAppCompatActivity(), OnHeroClickListener {
             heroesAdapter.submitList(it)
         })
         heroesAdapter.setHeroClickListener(this)
-    }
-
-    private fun initState() {
-        mainPresenter.getState().observe(this, Observer { state ->
-            progress.visibility = if (mainPresenter.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
-            if (!mainPresenter.listIsEmpty()) {
-                heroesAdapter.setState(state ?: State.DONE)
-            }
-        })
     }
 
 }

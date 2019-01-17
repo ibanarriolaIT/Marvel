@@ -1,5 +1,6 @@
 package com.ibanarriola.testapplication.repository
 
+import com.ibanarriola.marvelheroes.Mockable
 import com.ibanarriola.testapplication.repository.datasource.DataModule
 import com.ibanarriola.testapplication.repository.model.Heroes
 import io.reactivex.Single
@@ -7,6 +8,7 @@ import java.security.MessageDigest
 import java.util.*
 import javax.inject.Inject
 
+@Mockable
 class HeroesRepository @Inject constructor() {
 
     val privateKey = "5009bb73066f50f127907511e70f691cd3f2bb2c"
