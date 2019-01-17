@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ibanarriola.marvelheroes.R
+import com.ibanarriola.marvelheroes.glide.GlideApp
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import kotlinx.android.synthetic.main.hero_item.view.*
 import java.text.DecimalFormat

@@ -3,6 +3,7 @@ package com.ibanarriola.marvelheroes.repository
 import com.ibanarriola.marvelheroes.Mockable
 import com.ibanarriola.marvelheroes.repository.datasource.DataModule
 import com.ibanarriola.marvelheroes.repository.model.Heroes
+import kotlinx.coroutines.Deferred
 import java.security.MessageDigest
 import java.util.*
 
@@ -14,11 +15,11 @@ class HeroesRepository {
     val apiDataSource = DataModule.create()
     val pageSize = 20
 
-    suspend fun getHeroes(page: Int): Heroes.DataResult {
+    suspend fun getHeroes(page: Int): Deferred<Heroes.DataResult> {
         val now = Date().time.toString()
         val hash = generateHash(now + privateKey + publicKey)
         val offset: Int = page * pageSize
-        return apiDataSource.getHeroes(now, publicKey, hash, offset, pageSize).await()
+        return apiDataSource.getHeroes(now, publicKey, hash, offset, pageSize)
     }
 
     fun generateHash(variable: String): String {

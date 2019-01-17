@@ -28,7 +28,7 @@ class MainPresenter(private val uiContext: CoroutineContext = Dispatchers.Main) 
     fun getHeroesFromRepository(page: Int) {
         launch {
             try {
-                val response = heroesRepository.getHeroes(page)
+                val response = heroesRepository.getHeroes(page).await()
                 listener.onHeroesReady(response.data.results)
             } catch (e: HttpException) {
                 listener.onError(e.message())
