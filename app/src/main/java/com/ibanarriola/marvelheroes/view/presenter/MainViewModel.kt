@@ -13,7 +13,7 @@ import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSourc
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import io.reactivex.disposables.CompositeDisposable
 
-class MainPresenter : ViewModel() {
+class MainViewModel : ViewModel() {
 
     var heroesList: LiveData<PagedList<Heroes.MapHero>>
     private val compositeDisposable = CompositeDisposable()

@@ -16,7 +16,7 @@ import com.ibanarriola.marvelheroes.repository.datasource.State
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import com.ibanarriola.marvelheroes.view.adapter.HeroAdapter
 import com.ibanarriola.marvelheroes.view.adapter.OnHeroClickListener
-import com.ibanarriola.marvelheroes.view.presenter.MainPresenter
+import com.ibanarriola.marvelheroes.view.presenter.MainViewModel
 import kotlinx.android.synthetic.main.fragment_heroes_list.*
 
 class HeroesListFragment : Fragment(), OnHeroClickListener {
@@ -30,7 +30,7 @@ class HeroesListFragment : Fragment(), OnHeroClickListener {
     }
 
     private lateinit var heroesAdapter: HeroAdapter
-    private val mainPresenter: MainPresenter = heroesRepositoryModel.instance()
+    private val mainViewModel: MainViewModel = heroesRepositoryModel.instance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         currentView = inflater.inflate(R.layout.fragment_heroes_list, container, false)
@@ -47,16 +47,16 @@ class HeroesListFragment : Fragment(), OnHeroClickListener {
         heroesAdapter = HeroAdapter()
         heroes_list.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         heroes_list.adapter = heroesAdapter
-        mainPresenter.heroesList.observe(this, Observer {
+        mainViewModel.heroesList.observe(this, Observer {
             heroesAdapter.submitList(it)
         })
         heroesAdapter.setHeroClickListener(this)
     }
 
     private fun initState() {
-        mainPresenter.getState().observe(this, Observer { state ->
-            progress.visibility = if (mainPresenter.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
-            if (!mainPresenter.listIsEmpty()) {
+        mainViewModel.getState().observe(this, Observer { state ->
+            progress.visibility = if (mainViewModel.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
+            if (!mainViewModel.listIsEmpty()) {
                 heroesAdapter.setState(state ?: State.DONE)
             }
         })
