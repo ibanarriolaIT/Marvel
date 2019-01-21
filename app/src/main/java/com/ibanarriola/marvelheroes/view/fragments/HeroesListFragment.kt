@@ -23,7 +23,7 @@ class HeroesListFragment : Fragment(), OnHeroClickListener {
 
     lateinit var currentView: View
 
-    override fun OnHeroClick(hero: Heroes.MapHero) {
+    override fun onHeroClick(hero: Heroes.MapHero) {
         val bundle = Bundle()
         bundle.putParcelable("hero", hero)
         currentView.findNavController().navigate(R.id.action_heroes_list_fragment_to_fragment_hero_details, bundle)

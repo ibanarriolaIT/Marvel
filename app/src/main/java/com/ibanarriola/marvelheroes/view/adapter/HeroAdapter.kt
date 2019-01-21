@@ -65,7 +65,7 @@ class HeroViewHolder(val binding: HeroItemBinding) : RecyclerView.ViewHolder(bin
                 itemView.hero_price.visibility = View.GONE
             }
             itemView.setOnClickListener {
-                onHeroClickListener.OnHeroClick(hero)
+                onHeroClickListener.onHeroClick(hero)
             }
         }
     }
@@ -80,5 +80,5 @@ class HeroViewHolder(val binding: HeroItemBinding) : RecyclerView.ViewHolder(bin
 }
 
 interface OnHeroClickListener {
-    fun OnHeroClick(hero: Heroes.MapHero)
+    fun onHeroClick(hero: Heroes.MapHero)
 }
