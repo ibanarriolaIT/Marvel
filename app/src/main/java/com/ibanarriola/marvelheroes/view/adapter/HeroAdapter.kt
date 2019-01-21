@@ -56,7 +56,7 @@ class HeroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                     .placeholder(R.mipmap.marvel)
                     .into(itemView.hero_image)
             itemView.setOnClickListener {
-                onHeroClickListener.OnHeroClick(hero)
+                onHeroClickListener.onHeroClick(hero)
             }
         }
     }
@@ -71,5 +71,5 @@ class HeroViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 }
 
 interface OnHeroClickListener {
-    fun OnHeroClick(hero: Heroes.Hero)
+    fun onHeroClick(hero: Heroes.Hero)
 }

@@ -6,4 +6,5 @@
    <string name="hero_image">Hero image</string>
    <string name="title_activity_hero_detail">HeroDetailActivity</string>
    <string name="price_text">%1s€</string>
+   <string name="hero_error">Ha habido un problema al buscar los heroes</string>
 </resources>

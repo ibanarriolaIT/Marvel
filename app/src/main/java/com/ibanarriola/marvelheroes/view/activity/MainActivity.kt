@@ -1,5 +1,7 @@
 package com.ibanarriola.marvelheroes.view.activity
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -8,19 +10,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.R
-import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import com.ibanarriola.marvelheroes.view.adapter.HeroAdapter
 import com.ibanarriola.marvelheroes.view.adapter.OnHeroClickListener
-import com.ibanarriola.marvelheroes.view.presenter.MainPresenter
+import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStatesListener {
+class MainActivity : AppCompatActivity(), OnHeroClickListener {
     private lateinit var heroesAdapter: HeroAdapter
-    private val mainPresenter: MainPresenter = heroesRepositoryModel.instance()
     private val heroesList = mutableListOf<Heroes.Hero>()
     private var page = 0
     private var progressBarUpdated = false
@@ -29,10 +28,10 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStatesLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initAdapter()
-        initState()
+        findHeroes()
     }
 
-    override fun OnHeroClick(hero: Heroes.Hero) {
+    override fun onHeroClick(hero: Heroes.Hero) {
         val intent = Intent(this, HeroDetailActivity::class.java)
         intent.putExtra("hero", hero)
         startActivity(intent)
@@ -51,27 +50,32 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStatesLis
                         && progress.visibility == View.GONE) {
                     page++
                     progress.visibility = View.VISIBLE
-                    mainPresenter.getHeroesFromRepository(page)
+                    findHeroes()
                 }
 
             }
         })
     }
 
-    private fun initState() {
+    private fun getViewModel(page: Int) = ViewModelProviders.of(this)
+            .get(MainViewModel::class.java)
+            .getHeroesFromRepository(page)
+
+    private fun findHeroes() {
         progress.visibility = View.VISIBLE
-        mainPresenter.setActivityListener(this)
-        mainPresenter.getHeroesFromRepository(page)
+        getViewModel(page).observe(this, Observer<Heroes.DataResult> { heroes ->
+            modifyProgressBar()
+            progress.visibility = View.GONE
+            if (heroes?.data?.results == null) {
+                showError(getString(R.string.hero_error))
+                return@Observer
+            }
+            heroesList.addAll(heroes.data.results)
+            heroesAdapter.notifyDataSetChanged()
+        })
     }
 
-    override fun onHeroesReady(heroes: List<Heroes.Hero>) {
-        modifyProgressBar()
-        progress.visibility = View.GONE
-        heroesList.addAll(heroes)
-        heroesAdapter.notifyDataSetChanged()
-    }
-
-    override fun onError(error: String?) {
+    fun showError(error: String?) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
@@ -86,9 +90,4 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener, ActivityStatesLis
         }
     }
 
-}
-
-interface ActivityStatesListener {
-    fun onHeroesReady(hero: List<Heroes.Hero>)
-    fun onError(error: String?)
 }
