@@ -14,11 +14,9 @@
       android:usesCleartextTraffic="true">
       <activity
          android:name="com.ibanarriola.marvelheroes.view.activity.HeroDetailActivity"
-         android:configChanges="orientation|screenSize"
          android:label="@string/title_activity_hero_detail"
          android:theme="@style/AppTheme.NoActionBar"></activity>
-      <activity android:name="com.ibanarriola.marvelheroes.view.activity.MainActivity"
-         android:configChanges="orientation|screenSize">
+      <activity android:name="com.ibanarriola.marvelheroes.view.activity.MainActivity">
          <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

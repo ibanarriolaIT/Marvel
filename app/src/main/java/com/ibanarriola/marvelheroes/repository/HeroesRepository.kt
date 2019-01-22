@@ -1,15 +1,12 @@
 package com.ibanarriola.marvelheroes.repository
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.Mockable
-import com.ibanarriola.marvelheroes.repository.datasource.DataModule
+import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
+import com.ibanarriola.marvelheroes.repository.datasource.ApiDataSource
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import java.security.MessageDigest
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 
 @Mockable
@@ -17,24 +14,15 @@ class HeroesRepository {
 
     val privateKey = "5009bb73066f50f127907511e70f691cd3f2bb2c"
     val publicKey = "51ef4d355f513641b490a80d32503852"
-    val apiDataSource = DataModule.create()
+    val apiDataSource: ApiDataSource = heroesRepositoryModel.instance()
     val pageSize = 20
 
-    fun getHeroes(page: Int): LiveData<Heroes.DataResult> {
-        val data = MutableLiveData<Heroes.DataResult>()
+    @Mockable
+    suspend fun getHeroes(page: Int): Deferred<Heroes.DataResult> {
         val now = Date().time.toString()
         val hash = generateHash(now + privateKey + publicKey)
         val offset: Int = page * pageSize
-        apiDataSource.getHeroes(now, publicKey, hash, offset, pageSize).enqueue(object: Callback<Heroes.DataResult>{
-            override fun onFailure(call: Call<Heroes.DataResult>, t: Throwable) {
-                data.value = null
-            }
-
-            override fun onResponse(call: Call<Heroes.DataResult>, response: Response<Heroes.DataResult>) {
-                data.value = response.body()
-            }
-        })
-        return data
+        return apiDataSource.getHeroes(now, publicKey, hash, offset, pageSize)
     }
 
     fun generateHash(variable: String): String {

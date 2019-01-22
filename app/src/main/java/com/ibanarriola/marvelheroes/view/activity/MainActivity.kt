@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), OnHeroClickListener {
     private lateinit var heroesAdapter: HeroAdapter
+    private lateinit var viewModel: MainViewModel
     private val heroesList = mutableListOf<Heroes.Hero>()
     private var page = 0
     private var progressBarUpdated = false
@@ -27,7 +28,10 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = ViewModelProviders.of(this)
+                .get(MainViewModel::class.java)
         initAdapter()
+        initObserver()
         findHeroes()
     }
 
@@ -46,7 +50,7 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (heroesList.size - 8 < (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                if (heroesList.size - 15 < (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
                         && progress.visibility == View.GONE) {
                     page++
                     progress.visibility = View.VISIBLE
@@ -57,22 +61,22 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener {
         })
     }
 
-    private fun getViewModel(page: Int) = ViewModelProviders.of(this)
-            .get(MainViewModel::class.java)
-            .getHeroesFromRepository(page)
-
-    private fun findHeroes() {
-        progress.visibility = View.VISIBLE
-        getViewModel(page).observe(this, Observer<Heroes.DataResult> { heroes ->
+    private fun initObserver() {
+        viewModel.data.observe(this, Observer { heroes ->
             modifyProgressBar()
             progress.visibility = View.GONE
-            if (heroes?.data?.results == null) {
+            if (heroes == null) {
                 showError(getString(R.string.hero_error))
                 return@Observer
             }
-            heroesList.addAll(heroes.data.results)
+            heroesList.addAll(heroes)
             heroesAdapter.notifyDataSetChanged()
         })
+    }
+
+    private fun findHeroes() {
+        progress.visibility = View.VISIBLE
+        viewModel.getHeroesFromRepository(page)
     }
 
     fun showError(error: String?) {

@@ -16,7 +16,7 @@ interface ApiDataSource {
                   @Query("apikey") apikey: String,
                   @Query("hash") hash: String,
                   @Query("offset") offset: Int,
-                  @Query("limit") limit: Int): Call<Heroes.DataResult>
+                  @Query("limit") limit: Int): Deferred<Heroes.DataResult>
 
 
 }
