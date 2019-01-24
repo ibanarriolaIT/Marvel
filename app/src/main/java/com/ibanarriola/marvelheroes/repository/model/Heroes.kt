@@ -2,40 +2,52 @@ package com.ibanarriola.marvelheroes.repository.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.text.DecimalFormat
 
 object Heroes {
-    data class DataResult(val data: Data)
-    data class Data(val results: List<Hero>)
-    data class Hero(val id: Int, val title: String?, val description: String?, val pageCount: Int, val thumbnail: Thumbnail?, val prices: List<Prices>?) : Parcelable {
+    data class MapHero(val name: String?, val description: String?, val price: String, val smallImage: String, val bigImage: String) : Parcelable {
         constructor(parcel: Parcel) : this(
-                parcel.readInt(),
                 parcel.readString(),
                 parcel.readString(),
-                parcel.readInt(),
-                parcel.readParcelable(Thumbnail::class.java.classLoader),
-                parcel.createTypedArrayList(Prices))
+                parcel.readString(),
+                parcel.readString(),
+                parcel.readString())
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
-            parcel.writeInt(id)
-            parcel.writeString(title)
+            parcel.writeString(name)
             parcel.writeString(description)
-            parcel.writeInt(pageCount)
-            parcel.writeParcelable(thumbnail, flags)
-            parcel.writeTypedList(prices)
+            parcel.writeString(price)
+            parcel.writeString(smallImage)
+            parcel.writeString(bigImage)
         }
 
         override fun describeContents(): Int {
             return 0
         }
 
-        companion object CREATOR : Parcelable.Creator<Hero> {
-            override fun createFromParcel(parcel: Parcel): Hero {
-                return Hero(parcel)
+        companion object CREATOR : Parcelable.Creator<MapHero> {
+            override fun createFromParcel(parcel: Parcel): MapHero {
+                return MapHero(parcel)
             }
 
-            override fun newArray(size: Int): Array<Hero?> {
+            override fun newArray(size: Int): Array<MapHero?> {
                 return arrayOfNulls(size)
             }
+        }
+
+    }
+
+    data class DataResult(val data: Data)
+    data class Data(val results: List<Hero>)
+    data class Hero(val id: Int, val title: String?, val description: String?, val pageCount: Int, val thumbnail: Thumbnail?, val prices: List<Prices>?) {
+        fun convertToMapHero(): MapHero {
+            val df = DecimalFormat("0.##€")
+            return MapHero(
+                    title,
+                    description,
+                    df.format(prices?.get(0)?.price),
+                    thumbnail?.path + "/standard_large." + thumbnail?.extension,
+                    thumbnail?.path + "/standard_fantastic." + thumbnail?.extension)
         }
     }
 

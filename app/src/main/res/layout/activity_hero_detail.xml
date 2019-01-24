@@ -1,44 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
    xmlns:tools="http://schemas.android.com/tools"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content">
+   xmlns:app="http://schemas.android.com/apk/res-auto">
 
-   <LinearLayout
+   <data>
+      <variable
+         name="hero"
+         type="com.ibanarriola.marvelheroes.repository.model.Heroes.MapHero"/>
+   </data>
+   <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      tools:context=".view.activity.HeroDetailActivity">
+      android:layout_height="wrap_content">
 
-      <ImageView
-         android:id="@+id/hero_image"
+      <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:contentDescription="@string/hero_image"/>
+         android:orientation="vertical"
+         tools:context=".view.activity.HeroDetailActivity">
 
-      <android.support.v7.widget.AppCompatTextView
-         android:id="@+id/hero_name"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         style="@style/AppTheme.Title"
-         android:layout_margin="5dp"
-         android:textStyle="bold"
-         android:textSize="15sp" />
+         <ImageView
+            android:id="@+id/hero_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/hero_image"
+            app:photoFilePath="@{hero.bigImage}"/>
 
-      <android.support.v7.widget.AppCompatTextView
-         android:id="@+id/hero_price"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         style="@style/AppTheme.Price"
-         android:layout_margin="5dp"
-         android:textSize="14sp" />
+         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/hero_name"
+            style="@style/AppTheme.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@{hero.name}"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
-      <android.support.v7.widget.AppCompatTextView
-         android:id="@+id/hero_description"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         style="@style/AppTheme.Description"
-         android:layout_margin="5dp"/>
+         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/hero_price"
+            style="@style/AppTheme.Price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@{hero.price}"
+            android:textSize="14sp" />
 
-   </LinearLayout>
-</ScrollView>
+         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/hero_description"
+            style="@style/AppTheme.Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{hero.description}"
+            android:layout_margin="5dp" />
+
+      </LinearLayout>
+   </ScrollView>
+</layout>

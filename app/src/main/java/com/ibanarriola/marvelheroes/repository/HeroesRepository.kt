@@ -1,12 +1,13 @@
 package com.ibanarriola.marvelheroes.repository
 
+import android.content.Context
 import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.Mockable
 import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
 import com.ibanarriola.marvelheroes.repository.datasource.ApiDataSource
 import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.utils.generateHash
 import kotlinx.coroutines.Deferred
-import java.security.MessageDigest
 import java.util.*
 
 @Mockable
@@ -17,19 +18,10 @@ class HeroesRepository {
     val apiDataSource: ApiDataSource = heroesRepositoryModel.instance()
     val pageSize = 20
 
-    @Mockable
     suspend fun getHeroes(page: Int): Deferred<Heroes.DataResult> {
         val now = Date().time.toString()
-        val hash = generateHash(now + privateKey + publicKey)
+        val hash = (now + privateKey + publicKey).generateHash()
         val offset: Int = page * pageSize
         return apiDataSource.getHeroes(now, publicKey, hash, offset, pageSize)
-    }
-
-    fun generateHash(variable: String): String {
-        val md = MessageDigest.getInstance("MD5")
-        val digested = md.digest(variable.toByteArray())
-        return digested.joinToString("") {
-            String.format("%02x", it)
-        }
     }
 }

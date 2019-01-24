@@ -18,17 +18,25 @@ import org.mockito.MockitoAnnotations
 import java.util.*
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.rules.TestRule
+import org.mockito.Mockito
+import org.mockito.stubbing.OngoingStubbing
 
 
 class HeroesDataSourceTest {
 
+
+    inline fun <reified T> mock(): T =
+            Mockito.mock(T::class.java)
+
+    // To avoid having to use backticks for "when"
+    fun <T> whenever(methodCall: T): OngoingStubbing<T> =
+            Mockito.`when`(methodCall)
+
     @get:Rule
     var instantExecutorRule: TestRule = InstantTaskExecutorRule()
-    @Mock
-    lateinit var heroesRepository: HeroesRepository
+    val heroesRepository: HeroesRepository = mock()
 
-    @Mock
-    lateinit var deferred: Deferred<Heroes.DataResult>
+    val deferred: Deferred<Heroes.DataResult> = mock()
     val hero = Heroes.Hero(1, "superman", "holasuperman", 1, null, null)
     val results = Arrays.asList(hero)
     val data = Heroes.Data(results)
@@ -41,14 +49,15 @@ class HeroesDataSourceTest {
 
     @Test
     fun testLoadInitialSuccess(): Unit = runBlocking {
-        `when`(heroesRepository.getHeroes(0)).thenReturn(deferred)
-        `when`(deferred.await()).thenReturn(dataResult)
+        whenever(heroesRepository.getHeroes(0)).thenReturn(deferred)
+        whenever(deferred.await()).thenReturn(dataResult)
+
         val liveData: MutableLiveData<List<Heroes.Hero>>
         val mainViewModel = MainViewModel(Dispatchers.Unconfined)
         liveData = mainViewModel.data
         mainViewModel.getHeroesFromRepository(0)
-        delay(10000L)
-        Assert.assertEquals(dataResult, liveData.value)
+        delay(2000L)
+        Assert.assertEquals(20, liveData.value?.size)
     }
 
 }
