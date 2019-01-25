@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ibanarriola.marvelheroes.R
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import com.ibanarriola.marvelheroes.view.adapter.HeroAdapter
-import com.ibanarriola.marvelheroes.view.adapter.OnHeroClickListener
 import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), OnHeroClickListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var heroesAdapter: HeroAdapter
     private lateinit var viewModel: MainViewModel
     private val heroesList = mutableListOf<Heroes.MapHero>()
@@ -35,17 +35,17 @@ class MainActivity : AppCompatActivity(), OnHeroClickListener {
         findHeroes()
     }
 
-    override fun onHeroClick(hero: Heroes.MapHero) {
-        val intent = Intent(this, HeroDetailActivity::class.java)
-        intent.putExtra("hero", hero)
-        startActivity(intent)
-    }
-
     private fun initAdapter() {
         heroesAdapter = HeroAdapter(heroesList)
         heroes_list.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         heroes_list.adapter = heroesAdapter
-        heroesAdapter.setHeroClickListener(this)
+        val adapterLiveData = MutableLiveData<Heroes.MapHero>()
+        heroesAdapter.setLiveData(adapterLiveData)
+        adapterLiveData.observe(this, Observer { hero ->
+            val intent = Intent(this, HeroDetailActivity::class.java)
+            intent.putExtra("hero", hero)
+            startActivity(intent)
+        })
         heroes_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

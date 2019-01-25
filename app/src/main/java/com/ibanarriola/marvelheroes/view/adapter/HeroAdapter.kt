@@ -3,6 +3,7 @@ package com.ibanarriola.marvelheroes.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.ibanarriola.marvelheroes.databinding.HeroItemBinding
 import com.ibanarriola.marvelheroes.repository.model.Heroes
@@ -14,7 +15,7 @@ class HeroAdapter(val heroes: List<Heroes.MapHero>) : RecyclerView.Adapter<HeroV
     override fun getItemCount() = heroes.size
 
     private lateinit var heroViewHolder: HeroViewHolder
-    private lateinit var onHeroClickListener: OnHeroClickListener
+    private lateinit var data: MutableLiveData<Heroes.MapHero>
 
     override fun onBindViewHolder(holder: HeroViewHolder, position: Int) {
         holder.bind(heroes[position])
@@ -22,25 +23,25 @@ class HeroAdapter(val heroes: List<Heroes.MapHero>) : RecyclerView.Adapter<HeroV
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroViewHolder {
         heroViewHolder = HeroViewHolder.create(parent)
-        heroViewHolder.setOnHeroClickListener(onHeroClickListener)
+        heroViewHolder.setLiveData(data)
         return heroViewHolder
     }
 
-    fun setHeroClickListener(onHeroClickListener: OnHeroClickListener) {
-        this.onHeroClickListener = onHeroClickListener
+    fun setLiveData(data: MutableLiveData<Heroes.MapHero>) {
+        this.data = data
     }
 }
 
 class HeroViewHolder(val binding: HeroItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    private lateinit var onHeroClickListener: OnHeroClickListener
+    private lateinit var data: MutableLiveData<Heroes.MapHero>
 
-    fun setOnHeroClickListener(onHeroClickListener: OnHeroClickListener) {
-        this.onHeroClickListener = onHeroClickListener
+    fun setLiveData(data: MutableLiveData<Heroes.MapHero>) {
+        this.data = data
     }
 
     fun onHeroClick(hero: Heroes.MapHero) {
-        onHeroClickListener.onHeroClick(hero)
+        data.value = hero
     }
 
     fun bind(hero: Heroes.MapHero?) {
@@ -48,7 +49,7 @@ class HeroViewHolder(val binding: HeroItemBinding) : RecyclerView.ViewHolder(bin
             binding.viewHolder = this
             binding.hero = hero
             binding.executePendingBindings()
-            if(hero.price == "0€")
+            if (hero.price == "0€")
                 itemView.hero_price.visibility = View.GONE
         }
     }
@@ -60,8 +61,4 @@ class HeroViewHolder(val binding: HeroItemBinding) : RecyclerView.ViewHolder(bin
             return HeroViewHolder(binding)
         }
     }
-}
-
-interface OnHeroClickListener {
-    fun onHeroClick(hero: Heroes.MapHero)
 }
