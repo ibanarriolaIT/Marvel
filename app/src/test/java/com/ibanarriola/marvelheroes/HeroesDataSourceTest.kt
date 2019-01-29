@@ -7,7 +7,6 @@ import com.ibanarriola.marvelheroes.repository.model.Heroes
 import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
@@ -35,10 +34,14 @@ class HeroesDataSourceTest {
     val heroesRepository: HeroesRepository = mock()
 
     val deferred: Deferred<Heroes.DataResult> = mock()
-    val hero = Heroes.Hero(1, "superman", "holasuperman", 1, null, null)
+    val price = Heroes.Prices(2.0)
+    val prices = Arrays.asList(price)
+    val thumbnail = Heroes.Thumbnail("image", "jpg")
+    val hero = Heroes.Hero(1, "superman", "holasuperman", 1, thumbnail, prices)
     val results = Arrays.asList(hero)
     val data = Heroes.Data(results)
     val dataResult = Heroes.DataResult(data)
+    val expectedResult = Heroes.MapHero("superman", "holasuperman", "2€", "image/standard_large.jpg", "image/standard_fantastic.jpg")
 
     @Before
     fun initTest() {
@@ -49,13 +52,11 @@ class HeroesDataSourceTest {
     fun testLoadInitialSuccess(): Unit = runBlocking {
         whenever(heroesRepository.getHeroes(0)).thenReturn(deferred)
         whenever(deferred.await()).thenReturn(dataResult)
-
         val liveData: MutableLiveData<List<Heroes.MapHero>>
-        val mainViewModel = MainViewModel(Dispatchers.Unconfined)
+        val mainViewModel = MainViewModel(heroesRepository, Dispatchers.Unconfined)
         liveData = mainViewModel.data
         mainViewModel.getHeroesFromRepository(0)
-        delay(2000L)
-        Assert.assertEquals(20, liveData.value?.size)
+        Assert.assertEquals(expectedResult, liveData.value?.get(0))
     }
 
 }
