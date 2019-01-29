@@ -2,8 +2,6 @@ package com.ibanarriola.marvelheroes.view.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.salomonbrys.kodein.instance
-import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
 import com.ibanarriola.marvelheroes.repository.HeroesRepository
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import kotlinx.coroutines.CoroutineScope
@@ -13,9 +11,8 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import kotlin.coroutines.CoroutineContext
 
-class MainViewModel(private val uiContext: CoroutineContext = Dispatchers.Main) : ViewModel(), CoroutineScope {
+class MainViewModel(private val heroesRepository: HeroesRepository, private val uiContext: CoroutineContext = Dispatchers.Main) : ViewModel(), CoroutineScope {
 
-    private val heroesRepository: HeroesRepository = heroesRepositoryModel.instance()
     val data = MutableLiveData<List<Heroes.MapHero>>()
 
     private var job: Job = Job()

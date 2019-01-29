@@ -15,10 +15,16 @@ import com.ibanarriola.marvelheroes.R
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import com.ibanarriola.marvelheroes.view.adapter.HeroAdapter
 import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModel
+import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
+import org.kodein.di.generic.instance
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), KodeinAware {
+    override val kodein by closestKodein()
+    val viewModelFactory by instance<MainViewModelFactory>()
     private lateinit var heroesAdapter: HeroAdapter
     private lateinit var viewModel: MainViewModel
     private val heroesList = mutableListOf<Heroes.MapHero>()
@@ -28,7 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProviders.of(this)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)
                 .get(MainViewModel::class.java)
         initAdapter()
         initObserver()

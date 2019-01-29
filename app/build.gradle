@@ -48,8 +48,8 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
-    implementation 'com.github.salomonbrys.kodein:kodein:4.1.0'
-    implementation 'com.github.salomonbrys.kodein:kodein-android:4.1.0'
+    implementation 'org.kodein.di:kodein-di-generic-jvm:6.0.1'
+    implementation 'org.kodein.di:kodein-di-framework-android-x:6.0.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
     implementation "org.jetbrains.anko:anko-coroutines:0.10.4"
     implementation "android.arch.paging:runtime:1.0.1"

@@ -1,6 +1,7 @@
 package com.ibanarriola.marvelheroes
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import com.ibanarriola.marvelheroes.repository.HeroesRepository
 import com.ibanarriola.marvelheroes.repository.model.Heroes
 import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModel
@@ -12,14 +13,11 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
-import java.util.*
-import android.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.rules.TestRule
 import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
 import org.mockito.stubbing.OngoingStubbing
+import java.util.*
 
 
 class HeroesDataSourceTest {
@@ -52,7 +50,7 @@ class HeroesDataSourceTest {
         whenever(heroesRepository.getHeroes(0)).thenReturn(deferred)
         whenever(deferred.await()).thenReturn(dataResult)
 
-        val liveData: MutableLiveData<List<Heroes.Hero>>
+        val liveData: MutableLiveData<List<Heroes.MapHero>>
         val mainViewModel = MainViewModel(Dispatchers.Unconfined)
         liveData = mainViewModel.data
         mainViewModel.getHeroesFromRepository(0)
