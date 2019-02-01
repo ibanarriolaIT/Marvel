@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ibanarriola.marvelheroes.R
 import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.utils.observe
 import com.ibanarriola.marvelheroes.view.adapter.HeroAdapter
 import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModel
 import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModelFactory
@@ -68,16 +69,16 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     }
 
     private fun initObserver() {
-        viewModel.data.observe(this, Observer { heroes ->
+        observe(viewModel.data) { heroes ->
             modifyProgressBar()
             progress.visibility = View.GONE
             if (heroes == null) {
                 showError(getString(R.string.hero_error))
-                return@Observer
+                return@observe
             }
             heroesList.addAll(heroes)
             heroesAdapter.notifyDataSetChanged()
-        })
+        }
     }
 
     private fun findHeroes() {
