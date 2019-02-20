@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.ibanarriola.marvelheroes.databinding.HeroItemBinding
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import kotlinx.android.synthetic.main.hero_item.view.*
 
 class HeroAdapter(val heroes: List<Heroes.MapHero>) : RecyclerView.Adapter<HeroViewHolder>() {

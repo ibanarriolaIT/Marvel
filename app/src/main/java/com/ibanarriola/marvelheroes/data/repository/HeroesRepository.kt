@@ -1,8 +1,8 @@
-package com.ibanarriola.marvelheroes.repository
+package com.ibanarriola.marvelheroes.data.repository
 
 import com.ibanarriola.marvelheroes.Mockable
-import com.ibanarriola.marvelheroes.repository.datasource.ApiDataSource
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.datasource.ApiDataSource
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import com.ibanarriola.marvelheroes.utils.generateHash
 import kotlinx.coroutines.Deferred
 import java.util.*

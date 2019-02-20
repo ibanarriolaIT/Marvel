@@ -1,4 +1,4 @@
-package com.ibanarriola.marvelheroes.repository.model
+package com.ibanarriola.marvelheroes.data.model
 
 import android.os.Parcel
 import android.os.Parcelable

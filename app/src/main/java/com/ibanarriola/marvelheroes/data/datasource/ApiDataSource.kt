@@ -1,8 +1,7 @@
-package com.ibanarriola.marvelheroes.repository.datasource
+package com.ibanarriola.marvelheroes.data.datasource
 
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

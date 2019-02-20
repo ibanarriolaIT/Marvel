@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.ibanarriola.marvelheroes.R
 import com.ibanarriola.marvelheroes.databinding.ActivityHeroDetailBinding
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import kotlinx.android.synthetic.main.activity_hero_detail.*
 
 

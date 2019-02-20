@@ -1,4 +1,4 @@
-package com.ibanarriola.marvelheroes.repository.datasource
+package com.ibanarriola.marvelheroes.data.datasource
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.Retrofit

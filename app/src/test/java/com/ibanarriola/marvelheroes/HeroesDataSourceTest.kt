@@ -2,8 +2,8 @@ package com.ibanarriola.marvelheroes
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.ibanarriola.marvelheroes.repository.HeroesRepository
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.repository.HeroesRepository
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import com.ibanarriola.marvelheroes.view.viewmodel.MainViewModel
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers

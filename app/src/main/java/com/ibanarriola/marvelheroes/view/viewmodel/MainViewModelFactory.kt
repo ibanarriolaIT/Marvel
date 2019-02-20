@@ -2,12 +2,12 @@ package com.ibanarriola.marvelheroes.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ibanarriola.marvelheroes.repository.HeroesRepository
+import com.ibanarriola.marvelheroes.data.usecase.GetHeroes
 
-class MainViewModelFactory(private val heroesRepository: HeroesRepository) : ViewModelProvider.Factory {
+class MainViewModelFactory(private val getHeroes: GetHeroes) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(heroesRepository) as T
+            return MainViewModel(getHeroes) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
