@@ -1,10 +1,10 @@
-package com.ibanarriola.marvelheroes.repository.datasource.heroes
+package com.ibanarriola.marvelheroes.data.datasource.heroes
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
-import com.ibanarriola.marvelheroes.repository.HeroesRepository
-import com.ibanarriola.marvelheroes.repository.datasource.State
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.repository.HeroesRepository
+import com.ibanarriola.marvelheroes.data.datasource.State
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +15,7 @@ class HeroesDataSource(private val heroesRepository: HeroesRepository,
                        private val compositeDisposable: CompositeDisposable)
     : PageKeyedDataSource<Int, Heroes.MapHero>() {
 
-    var state: MutableLiveData<State> = MutableLiveData()
+    val state: MutableLiveData<State> = MutableLiveData()
     private var retryCompletable: Completable? = null
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Heroes.MapHero>) {

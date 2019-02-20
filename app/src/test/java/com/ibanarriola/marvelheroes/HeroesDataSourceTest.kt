@@ -1,9 +1,9 @@
 package com.ibanarriola.marvelheroes
 
 import android.arch.paging.PageKeyedDataSource
-import com.ibanarriola.marvelheroes.repository.HeroesRepository
-import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSource
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.repository.HeroesRepository
+import com.ibanarriola.marvelheroes.data.datasource.heroes.HeroesDataSource
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.TestObserver

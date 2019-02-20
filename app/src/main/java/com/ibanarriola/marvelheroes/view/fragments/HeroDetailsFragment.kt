@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ibanarriola.marvelheroes.R
 import com.ibanarriola.marvelheroes.databinding.FragmentHeroDetailBinding
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import kotlinx.android.synthetic.main.fragment_hero_detail.view.*
 
 class HeroDetailsFragment : Fragment() {

@@ -1,8 +1,8 @@
-package com.ibanarriola.marvelheroes.repository
+package com.ibanarriola.marvelheroes.data.repository
 
 import com.ibanarriola.marvelheroes.Mockable
-import com.ibanarriola.marvelheroes.repository.datasource.DataModule
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.datasource.DataModule
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import com.ibanarriola.marvelheroes.utils.generateHash
 import io.reactivex.Single
 import java.util.*

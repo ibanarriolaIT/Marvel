@@ -7,21 +7,20 @@ import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
-import com.ibanarriola.marvelheroes.repository.datasource.State
-import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSource
-import com.ibanarriola.marvelheroes.repository.datasource.heroes.HeroesDataSourceFactory
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.datasource.State
+import com.ibanarriola.marvelheroes.data.datasource.heroes.HeroesDataSource
+import com.ibanarriola.marvelheroes.data.datasource.heroes.HeroesDataSourceFactory
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import io.reactivex.disposables.CompositeDisposable
 
-class MainViewModel : ViewModel() {
+class HeroesListViewModel : ViewModel() {
 
     var heroesList: LiveData<PagedList<Heroes.MapHero>>
-    private val compositeDisposable = CompositeDisposable()
     private val pageSize = 20
-    private val heroesDataSourceFactory: HeroesDataSourceFactory
+    private val compositeDisposable: CompositeDisposable = heroesRepositoryModel.instance()
+    private val heroesDataSourceFactory: HeroesDataSourceFactory = heroesRepositoryModel.instance()
 
     init {
-        heroesDataSourceFactory = HeroesDataSourceFactory(compositeDisposable, heroesRepositoryModel.instance())
         val config = PagedList.Config.Builder()
                 .setPageSize(pageSize)
                 .setInitialLoadSizeHint(pageSize)

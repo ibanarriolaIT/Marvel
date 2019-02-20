@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ibanarriola.marvelheroes.databinding.HeroItemBinding
-import com.ibanarriola.marvelheroes.repository.datasource.State
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.datasource.State
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import kotlinx.android.synthetic.main.hero_item.view.*
 
 class HeroAdapter : PagedListAdapter<Heroes.MapHero, HeroViewHolder>(HeroDiffCallback) {

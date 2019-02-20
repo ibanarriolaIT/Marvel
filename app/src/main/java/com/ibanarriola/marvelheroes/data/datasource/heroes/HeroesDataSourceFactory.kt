@@ -1,9 +1,9 @@
-package com.ibanarriola.marvelheroes.repository.datasource.heroes
+package com.ibanarriola.marvelheroes.data.datasource.heroes
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.DataSource
-import com.ibanarriola.marvelheroes.repository.HeroesRepository
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.repository.HeroesRepository
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import io.reactivex.disposables.CompositeDisposable
 
 class HeroesDataSourceFactory(private val compositeDisposable: CompositeDisposable,

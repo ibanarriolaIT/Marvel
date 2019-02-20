@@ -12,11 +12,11 @@ import androidx.navigation.findNavController
 import com.github.salomonbrys.kodein.instance
 import com.ibanarriola.marvelheroes.R
 import com.ibanarriola.marvelheroes.kodein.heroesRepositoryModel
-import com.ibanarriola.marvelheroes.repository.datasource.State
-import com.ibanarriola.marvelheroes.repository.model.Heroes
+import com.ibanarriola.marvelheroes.data.datasource.State
+import com.ibanarriola.marvelheroes.data.model.Heroes
 import com.ibanarriola.marvelheroes.view.adapter.HeroAdapter
 import com.ibanarriola.marvelheroes.view.adapter.OnHeroClickListener
-import com.ibanarriola.marvelheroes.view.presenter.MainViewModel
+import com.ibanarriola.marvelheroes.view.presenter.HeroesListViewModel
 import kotlinx.android.synthetic.main.fragment_heroes_list.*
 
 class HeroesListFragment : Fragment(), OnHeroClickListener {
@@ -30,7 +30,7 @@ class HeroesListFragment : Fragment(), OnHeroClickListener {
     }
 
     private lateinit var heroesAdapter: HeroAdapter
-    private val mainViewModel: MainViewModel = heroesRepositoryModel.instance()
+    private val heroesListViewModel: HeroesListViewModel = heroesRepositoryModel.instance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         currentView = inflater.inflate(R.layout.fragment_heroes_list, container, false)
@@ -47,16 +47,16 @@ class HeroesListFragment : Fragment(), OnHeroClickListener {
         heroesAdapter = HeroAdapter()
         heroes_list.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         heroes_list.adapter = heroesAdapter
-        mainViewModel.heroesList.observe(this, Observer {
+        heroesListViewModel.heroesList.observe(this, Observer {
             heroesAdapter.submitList(it)
         })
         heroesAdapter.setHeroClickListener(this)
     }
 
     private fun initState() {
-        mainViewModel.getState().observe(this, Observer { state ->
-            progress.visibility = if (mainViewModel.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
-            if (!mainViewModel.listIsEmpty()) {
+        heroesListViewModel.getState().observe(this, Observer { state ->
+            progress.visibility = if (heroesListViewModel.listIsEmpty() && state == State.LOADING) View.VISIBLE else View.GONE
+            if (!heroesListViewModel.listIsEmpty()) {
                 heroesAdapter.setState(state ?: State.DONE)
             }
         })
