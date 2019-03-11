@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         heroes_list.adapter = heroesAdapter
         val adapterLiveData = MutableLiveData<Heroes.MapHero>()
         heroesAdapter.setLiveData(adapterLiveData)
-        adapterLiveData.observe(this, Observer { hero ->
+        observe(adapterLiveData) { hero ->
             val intent = Intent(this, HeroDetailActivity::class.java)
             intent.putExtra("hero", hero)
             startActivity(intent)
-        })
+        }
         heroes_list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
