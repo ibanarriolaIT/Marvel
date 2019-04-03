@@ -5,7 +5,7 @@ import android.os.Parcelable
 import java.text.DecimalFormat
 
 object Heroes {
-    data class MapHero(val name: String?, val description: String?, val price: String, val smallImage: String, val bigImage: String) : Parcelable {
+    data class MapHero(val name: String?, val description: String?, val price: String?, val smallImage: String?, val bigImage: String?) : Parcelable {
         constructor(parcel: Parcel) : this(
                 parcel.readString(),
                 parcel.readString(),
